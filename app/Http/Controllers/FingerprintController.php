@@ -159,12 +159,19 @@ class FingerprintController extends Controller
 		   "password" => ""
 		   "cardno" => "0000000000 "
     	*/
+		   ini_set("memory_limit", "-1");
+        ini_set("max_execution_time", "-1");
+
 		$students=Student::where('fingerprint_account_created',0)->get(['admission_number','id','name']);
-        $zk = new ZKTeco(config('zkteco.ip'),config('zkteco.port'));
-        if ($zk->connect()){        	
+
+		// ->where('current_class',5)
+        $zk = new ZKTeco('172.16.120.204',4370);
+        if ($zk->connect()){ 
+
         	foreach ($students as $key=>$student) {
         		$role = 0; //14= super admin, 0=User :: according to ZKtecho Machine
 	            $users = $zk->getUser();
+
 	            $total = end($users);
 	            $lastId=($total['uid'] ?? 0)+1;
 	            $studentName=$student->name;

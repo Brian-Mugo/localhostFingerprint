@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\FingerprintController;
+
+
+Route::get('/upload', [FingerprintController::class, 'addUser']);
+
+
 Route::get('/', function () {
     return view('welcome');
 });

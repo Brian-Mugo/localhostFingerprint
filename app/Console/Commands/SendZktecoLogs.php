@@ -33,7 +33,7 @@ class SendZktecoLogs extends Command
             To add authenticstion later
         */
         $ipAddresses = ['192.168.0.100'];
-        //p'172.161.120.201','172.161.120.202','172.161.120.203','172.161.120.204'];
+        //p'172.16.120.201','172.16.120.202','172.16.120.203','172.16.120.204'];
         $port = 4370;
         $url = 'https://kaagagirls.parpus.com/public/api/zkteco/post';
 
@@ -49,6 +49,31 @@ class SendZktecoLogs extends Command
             // connect
             if ($zk->connect()){
                 $zk->enableDevice();
+
+                /*
+                        $zk->enableDevice(ZKFingerprint::FUNCTION_USERTEMP);
+
+                        $startUserId = 0;
+                        $maxUsers = 127;
+                        $allUsers = [];
+
+                        while (true) {
+                            $users = $zk->getUser($startUserId, $maxUsers);
+
+                            if (empty($users)) {
+                                break;
+                            }
+
+                            $allUsers = array_merge($allUsers, $users);
+
+                            $startUserId = end($users)['id'] + 1;
+                        }
+
+                        $zk->disconnect();
+
+                        dd($allUsers);
+                */
+
                 $attendance = $zk->getAttendance();
 
                 // post logs to server
